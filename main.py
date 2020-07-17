@@ -166,7 +166,10 @@ def get_ios_data(ios_file):
         if info_path:
             plist_data = ipaobj.read(info_path)
             plist_root = readPlistFromString(plist_data)
-            labelname = plist_root['CFBundleDisplayName']
+            if 'CFBundleDisplayName' in plist_root.keys():
+                labelname = plist_root['CFBundleDisplayName']
+            else:
+                labelname = plist_root['CFBundleName']
             versioncode = plist_root['CFBundleVersion']
             bundle_id = plist_root['CFBundleIdentifier']
             return labelname, bundle_id, versioncode
